@@ -1,0 +1,174 @@
+map ; :
+set t_Co=256
+autocmd! bufwritepost .vimrc source %
+autocmd! bufwritepost .vimrc.local source %
+imap jk <c-c>
+nnoremap <leader>v "+gP
+let g:Powerline_symbols = 'fancy'
+nmap <leader>w :w!<cr>
+nmap <silent> <leader>s :set spell!<CR>
+map <leader>bd :Bclose<cr>
+map <leader>ba :1,300 bd!<cr>
+vmap <Leader>ns :NoteFromSelectedText<CR>
+vmap <Leader>ts :TabNoteFromSelectedText<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" MRU shorcuts
+map <leader><space> :MRU<CR> 
+
+set thesaurus+=$HOME/mthesaur.txt
+
+cmap w!! w !sudo tee  % >/dev/null 
+inoremap <C-s> <ESC>:w<CR>i<RIGHT>
+
+nnoremap <Space> <C-d>
+nnoremap <backspace> <C-u>
+
+
+"" center the cursor vertically
+nnoremap <Leader>zz :let &scrolloff=999-&scrolloff<CR>
+
+
+"" The best thing here! 
+"" In insert mode, you can paste from clipboard using CTRL+v
+inoremap <C-v> <ESC>:set paste<CR>"+gp<ESC>:set nopaste<ENTER>i<RIGHT>
+
+hi CursorLine cterm=NONE ctermbg=black
+nnoremap <Leader>z :Goyo<CR>
+let g:evervim_devtoken='S=s6:U=abe4e:E=14825ae6ebf:C=140cdfd42c3:P=1cd:A=en-devtoken:V=2:H=f68565e01127b85be8b20165957ec868'
+:let g:notes_directories = ['~/Dropbox/Notes',]
+:let g:notes_suffix = '.txt'
+inoremap <F3> <Esc>yyp<c-v>$r-A
+map <up> <nop>
+map <down> <nop>
+map <left> <nop>
+map <right> <nop>
+map <c-down> <c-d>
+map <c-up> <c-u>
+"if has('gui_running')
+    "set guifont=Liberation_Mono_for_Powerline:h12 
+"" set transparency=5
+ "set guioptions=egmrt
+ "let g:Powerline_symbols = 'fancy'
+"else
+ "let g:Powerline_symbols = 'compatible'
+"endif
+""if has("gui_running")
+  ""if has("gui_gtk2")
+    ""set guifont=Liberation_Mono_for_Powerline:h12 
+    ""let g:Powerline_symbols = 'fancy'
+    ""let g:airline_powerline_fonts = 1
+  ""elseif has("gui_macvim")
+    ""set guifont=Menlo\ Regular:h14
+  ""elseif has("gui_win32")
+    ""set guifont=Consolas:h11:cANSI
+  ""endif
+""endif
+if has("gui_running")
+  "" GUI is running or is about to start.
+  "" Maximize gvim window (for an alternative on Windows, see simalt below).
+  set lines=50 columns=80
+else
+  " This is console Vim.
+  if exists("+lines")
+    set lines=50
+    colorscheme desert256
+    hi Normal ctermbg=NONE
+  endif
+  if exists("+columns")
+    set columns=100
+  endif
+endif
+nnoremap <S-Enter> O<Esc>j
+nnoremap <CR> o<Esc>k
+let g:screen_size_restore_pos = 1
+
+" Disable stupid backup and swap files - they trigger too many events
+" for file system watchers
+set nobackup
+set nowritebackup
+set noswapfile
+
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: "\<TAB>"
+
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
+
+
+let g:user_emmet_leader_key='hh'
+let g:Imap_UsePlaceHolders = 0
+
+
+" found here: http://stackoverflow.com/a/2170800/70778
+"function! OmniPopup(action)
+    "if pumvisible()
+        "if a:action == 'j'
+            "return \"\<C-N>"
+        "elseif a:action == 'k'
+            "return \"\<C-P>"
+        "endif
+    "endif
+    "return a:action
+"endfunction
+"inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
+"inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
+
+"" Quick quit command
+"noremap <Leader>e :quit<CR>
+set wrap
+let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
+
+""autocmd InsertEnter * :set number
+""autocmd InsertLeave * :set relativenumber
+"autocmd InsertEnter * silent! :set nonumber
+"autocmd InsertLeave,BufNewFile,VimEnter * silent! :set number 
+""function! NumberToggle()
+  ""if(&relativenumber == 1)
+    ""set number
+  ""else
+    ""set relativenumber
+  ""endif
+""endfunc
+
+""nnoremap <C-n> :call NumberToggle()<cr>
+
+set guifont=DejaVuSansMonoforPowerline\ 11
+
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+
+" unicode symbols
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
+"let g:airline_left_sep = '»'
+"let g:airline_left_sep = '▶'
+"let g:airline_right_sep = '«'
+"let g:airline_right_sep = '◀'
+"let g:airline_symbols.linenr = '␊'
+"let g:airline_symbols.linenr = '␤'
+"let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
